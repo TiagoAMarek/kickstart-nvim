@@ -5,6 +5,7 @@
 -- Set highlight on search
 vim.o.hlsearch = false
 
+vim.g.icons_enabled = true -- disable icons in the UI (disable if no nerd font is available)
 -- Make line numbers default
 vim.wo.number = true
 

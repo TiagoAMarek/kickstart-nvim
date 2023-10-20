@@ -1,11 +1,14 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
   branch = "main", -- HACK: force neo-tree to checkout `main` for initial v3 migration since default branch has changed
-  dependencies = { "MunifTanjim/nui.nvim" },
+  dependencies = {
+    "MunifTanjim/nui.nvim",
+    "nvim-tree/nvim-web-devicons",
+  },
   cmd = "Neotree",
   init = function() vim.g.neo_tree_remove_legacy_commands = true end,
   opts = function()
-    local utils = require "astronvim.utils"
+    local utils = require "kickstart.utils"
     local get_icon = utils.get_icon
     return {
       auto_clean_after_session_restore = true,
@@ -15,9 +18,9 @@ return {
         winbar = true,
         content_layout = "center",
         sources = {
-          { source = "filesystem", display_name = get_icon("FolderClosed", 1, true) .. "File" },
-          { source = "buffers", display_name = get_icon("DefaultFile", 1, true) .. "Bufs" },
-          { source = "git_status", display_name = get_icon("Git", 1, true) .. "Git" },
+          { source = "filesystem",  display_name = get_icon("FolderClosed", 1, true) .. "File" },
+          { source = "buffers",     display_name = get_icon("DefaultFile", 1, true) .. "Bufs" },
+          { source = "git_status",  display_name = get_icon("Git", 1, true) .. "Git" },
           { source = "diagnostics", display_name = get_icon("Diagnostic", 1, true) .. "Diagnostic" },
         },
       },
@@ -48,7 +51,7 @@ return {
       commands = {
         system_open = function(state)
           -- TODO: just use vim.ui.open when dropping support for Neovim <0.10
-          (vim.ui.open or require("astronvim.utils").system_open)(state.tree:get_node():get_id())
+          vim.ui.open(state.tree:get_node():get_id())
         end,
         parent_or_close = function(state)
           local node = state.tree:get_node()
@@ -63,7 +66,7 @@ return {
           if node.type == "directory" or node:has_children() then
             if not node:is_expanded() then -- if unexpanded, expand
               state.commands.toggle_node(state)
-            else -- if expanded and has children, seleect the next child
+            else                           -- if expanded and has children, seleect the next child
               require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
             end
           else -- if not a directory just open it
