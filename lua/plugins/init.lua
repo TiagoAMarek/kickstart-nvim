@@ -67,4 +67,32 @@ return {
       end,
     },
   },
+  {
+    "zbirenbaum/neodim",
+    event = "LspAttach",
+    opts = {
+      alpha = 0.75,
+      blend_color = "#000000",
+      update_in_insert = {
+        enable = true,
+        delay = 100,
+      },
+      hide = {
+        virtual_text = true,
+        signs = true,
+        underline = true,
+      },
+    },
+  },
+  {
+    "nguyenvukhang/nvim-toggler",
+    event = { "User AstroFile", "InsertEnter" },
+    keys = {
+      {
+        "<leader>i",
+        desc = "Toggle CursorWord",
+      },
+    },
+    opts = {},
+  }
 }
