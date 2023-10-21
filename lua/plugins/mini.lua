@@ -13,9 +13,6 @@ return {
     },
     opts = {},
   },
-  {
-    "catppuccin/nvim",
-    optional = true,
-    opts = { integrations = { mini = true } },
-  },
+  { 'echasnovski/mini.cursorword', version = false },
+  { 'echasnovski/mini.trailspace', version = false },
 }
