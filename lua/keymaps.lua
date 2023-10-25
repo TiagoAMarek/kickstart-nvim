@@ -22,6 +22,44 @@ vim.keymap.set('n', '<leader>/', function()
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
 
+-- Git
+
+vim.keymap.set(
+  'n',
+  "<leader>gb",
+  function()
+    require("telescope.builtin").git_branches { use_file_path = true }
+  end,
+  { desc = "Git branches" }
+)
+
+vim.keymap.set(
+  'n',
+  "<leader>gc",
+  function()
+    require("telescope.builtin").git_commits { use_file_path = true }
+  end,
+  { desc = "Git commits (repository)" }
+)
+
+vim.keymap.set(
+  'n',
+  "<leader>gC",
+  function()
+    require("telescope.builtin").git_bcommits { use_file_path = true }
+  end,
+  { desc = "Git commits (current file)" }
+)
+
+vim.keymap.set(
+  'n',
+  "<leader>gt",
+  function()
+    require("telescope.builtin").git_status { use_file_path = true }
+  end,
+  { desc = "Git status" }
+)
+
 -- Search
 vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Find [G]it [F]iles' })
 vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[F]ind [F]iles' })
