@@ -1,13 +1,9 @@
 return {
-  {
-    "lewis6991/satellite.nvim",
-    config = function()
-    end
-  },
   -- Makes unusable variables dimmed
   {
     "zbirenbaum/neodim",
     event = "LspAttach",
+    lazy = false,
     opts = {
       alpha = 0.75,
       blend_color = "#000000",

@@ -26,6 +26,14 @@ end, { desc = '[/] Fuzzily search in current buffer' })
 
 vim.keymap.set(
   'n',
+  "<leader>gg",
+  function()
+    require("lazygit").lazygit()
+  end,
+  { desc = "Git branches" }
+)
+vim.keymap.set(
+  'n',
   "<leader>gb",
   function()
     require("telescope.builtin").git_branches { use_file_path = true }

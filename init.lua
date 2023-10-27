@@ -7,45 +7,28 @@ vim.g.maplocalleader = ' '
 require("install-lazy")
 require("options")
 require("keymaps")
+require("transparent").toggle(true)
 
-require('satellite').setup {
-  current_only = false,
-  winblend = 50,
-  zindex = 40,
-  excluded_filetypes = {},
-  width = 2,
-  handlers = {
-    cursor = {
-      enable = true,
-      -- Supports any number of symbols
-      symbols = { '⎺', '⎻', '⎼', '⎽' }
+require("noice").setup({
+  lsp = {
+    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+    override = {
+      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+      ["vim.lsp.util.stylize_markdown"] = true,
+      ["cmp.entry.get_documentation"] = true,
     },
-    search = {
-      enable = true,
-    },
-    diagnostic = {
-      enable = true,
-      signs = { '-', '=', '≡' },
-      min_severity = vim.diagnostic.severity.HINT,
-    },
-    gitsigns = {
-      enable = true,
-      signs = { -- can only be a single character (multibyte is okay)
-        add = "│",
-        change = "│",
-        delete = "-",
-      },
-    },
-    marks = {
-      enable = true,
-      show_builtins = false, -- shows the builtin marks like [ ] < >
-      key = 'm'
-    },
-    quickfix = {
-      signs = { '-', '=', '≡' },
-    }
   },
-}
+  -- you can enable a preset for easier configuration
+  presets = {
+    bottom_search = true,         -- use a classic bottom cmdline for search
+    command_palette = true,       -- position the cmdline and popupmenu together
+    long_message_to_split = true, -- long messages will be sent to a split
+    inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+    lsp_doc_border = false,       -- add a border to hover docs and signature help
+  },
+})
+-- show barbecue globally
+require("barbecue.ui").toggle(true)
 
 require("oil").setup({
   default_file_explorer = true,
@@ -77,10 +60,11 @@ require("oil").setup({
 require('which-key').register({
   ['<leader>c'] = { name = '[M]ode', _ = 'which_key_ignore' },
   ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
+  ['<leader>f'] = { name = '[F]ind', _ = 'which_key_ignore' },
   ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
   ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-  ['<leader>f'] = { name = '[F]ind', _ = 'which_key_ignore' },
   ['<leader>s'] = { name = '[S]pectre', _ = 'which_key_ignore' },
+  ['<leader>u'] = { name = '[U]ndotree', _ = 'which_key_ignore' },
   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
 })
 

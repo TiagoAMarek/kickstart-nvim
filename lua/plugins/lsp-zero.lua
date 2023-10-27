@@ -19,7 +19,7 @@ return {
 
           -- In this case, we create a function that lets us more easily define mappings specific
           -- for LSP related items. It sets the mode, buffer and description for us each time.
-          local nmap = function(keys, func, desc)
+          local normalModeMap = function(keys, func, desc)
             if desc then
               desc = 'LSP: ' .. desc
             end
@@ -27,22 +27,22 @@ return {
             vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
           end
 
-          nmap('<leader>r', vim.lsp.buf.rename, '[R]ename')
-          nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+          normalModeMap('<leader>r', vim.lsp.buf.rename, '[R]ename')
+          normalModeMap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-          nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-          nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-          nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-          nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-          nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-          nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+          normalModeMap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+          normalModeMap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+          normalModeMap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+          normalModeMap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+          normalModeMap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+          normalModeMap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
           -- See `:help K` for why this keymap
-          nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-          nmap('<leader>k', vim.lsp.buf.signature_help, 'Signature Documentation')
+          normalModeMap('K', vim.lsp.buf.hover, 'Hover Documentation')
+          normalModeMap('<leader>k', vim.lsp.buf.signature_help, 'Signature Documentation')
 
           -- Lesser used LSP functionality
-          nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+          normalModeMap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
         end
       )
 
@@ -70,6 +70,7 @@ return {
       local cmp = require('cmp')
       local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
+      -- autocomplete configs
       cmp.setup({
         sources = {
           { name = 'path' },
