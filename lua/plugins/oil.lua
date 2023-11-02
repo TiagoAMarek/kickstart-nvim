@@ -6,7 +6,7 @@ return {
   keys = {
     { "<leader>o", function() require("oil").open() end, desc = "Open folder in Oil" },
   },
-  config = function()
+  init = function()
     require("oil").setup({
       default_file_explorer = true,
       columns = {

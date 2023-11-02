@@ -1,12 +1,13 @@
 -- Set highlight on search
 vim.o.hlsearch = false
-
 vim.o.relativenumber = true
 -- Make line numbers default
 vim.wo.number = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
+
+vim.o.scrolloff = 8
 
 vim.o.foldenable = true   -- enable fold for nvim-ufo
 vim.o.foldlevel = 99      -- set high foldlevel for nvim-ufo
@@ -44,3 +45,9 @@ vim.o.termguicolors = true
 -- G options
 vim.g.icons_enabled = true -- disable icons in the UI (disable if no nerd font is available)
 vim.g.autoformat_enabled = true
+
+
+-- Copilot
+-- vim.g.copilot_no_tab_map = true
+-- vim.g.copilot_assume_mapped = true
+-- vim.g.copilot_tab_fallback = ""

@@ -1,4 +1,14 @@
+-- return {
+--   "github/copilot.vim",
+--   cmd = "Copilot"
+-- }
+
 return {
-  "github/copilot.vim",
-  cmd = "Copilot"
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    init = function()
+      require("copilot").setup({})
+    end
+  }
 }

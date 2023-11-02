@@ -27,19 +27,17 @@ require("noice").setup({
     lsp_doc_border = false,       -- add a border to hover docs and signature help
   },
 })
--- show barbecue globally
-require("barbecue.ui").toggle(true)
 
 -- document existing key chains
 require('which-key').register({
-  ['<leader>c'] = { name = '[M]ode', _ = 'which_key_ignore' },
-  ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-  ['<leader>f'] = { name = '[F]ind', _ = 'which_key_ignore' },
-  ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
-  ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-  ['<leader>s'] = { name = '[S]pectre', _ = 'which_key_ignore' },
-  ['<leader>u'] = { name = '[U]ndotree', _ = 'which_key_ignore' },
-  ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
+  ['<leader>c'] = { name = 'Code', _ = 'which_key_ignore' },
+  ['<leader>d'] = { name = 'Document', _ = 'which_key_ignore' },
+  ['<leader>f'] = { name = 'Find', _ = 'which_key_ignore' },
+  ['<leader>g'] = { name = 'Git', _ = 'which_key_ignore' },
+  ['<leader>r'] = { name = 'Rename', _ = 'which_key_ignore' },
+  ['<leader>s'] = { name = 'Spectre', _ = 'which_key_ignore' },
+  ['<leader>u'] = { name = 'Undotree', _ = 'which_key_ignore' },
+  ['<leader>w'] = { name = 'Workspace', _ = 'which_key_ignore' },
 })
 
 
