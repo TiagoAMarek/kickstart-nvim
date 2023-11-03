@@ -1,5 +1,30 @@
 return {
   {
+    'SmiteshP/nvim-navic',
+    dependencies = {
+      "neovim/nvim-lspconfig"
+    }
+  },
+  {
+    "SmiteshP/nvim-navbuddy",
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "SmiteshP/nvim-navic",
+      "MunifTanjim/nui.nvim",
+      "numToStr/Comment.nvim",        -- Optional
+      "nvim-telescope/telescope.nvim" -- Optional
+    },
+    keys = {
+      {
+        "<leader>n",
+        function()
+          require('nvim-navbuddy').open()
+        end,
+        desc = "Open NavBuddy",
+      }
+    }
+  },
+  {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v3.x',
     dependencies = {
@@ -15,6 +40,15 @@ return {
 
       lsp_zero.on_attach(
         function(client, bufnr)
+          -- add breadcrumbs
+          if client.server_capabilities.documentSymbolProvider then
+            require("nvim-navic").attach(client, bufnr)
+          end
+          -- breadcrumbs navigation
+          if client.server_capabilities.documentSymbolProvider then
+            require("nvim-navbuddy").attach(client, bufnr)
+          end
+
           lsp_zero.default_keymaps({ buffer = bufnr })
 
           -- In this case, we create a function that lets us more easily define mappings specific

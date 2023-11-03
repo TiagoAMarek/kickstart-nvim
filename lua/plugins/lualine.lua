@@ -8,7 +8,14 @@ return {
       section_separators = { left = '', right = '' },
       disabled_filetypes = {
         statusline = {},
-        winbar = {},
+        winbar = {
+          "help",
+          "lazy",
+          "Trouble",
+          "lir",
+          "Outline",
+          "spectre_panel",
+        },
       },
       ignore_focus = {},
       always_divide_middle = true,
@@ -60,6 +67,14 @@ return {
       lualine_z = {}
     },
     tabline = {},
+    -- winbar = {
+    --   lualine_a = { "filename" },
+    --   lualine_b = {},
+    --   lualine_c = {},
+    --   lualine_x = {},
+    --   lualine_y = {},
+    --   lualine_z = {},
+    -- },
     winbar = {},
     inactive_winbar = {},
     extensions = {}
