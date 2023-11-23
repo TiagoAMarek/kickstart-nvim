@@ -38,63 +38,21 @@ return {
     init = function()
       local lsp_zero = require('lsp-zero')
 
-      lsp_zero.on_attach(
-        function(client, bufnr)
-          -- add breadcrumbs
-          if client.server_capabilities.documentSymbolProvider then
-            require("nvim-navic").attach(client, bufnr)
-          end
-          -- breadcrumbs navigation
-          if client.server_capabilities.documentSymbolProvider then
-            require("nvim-navbuddy").attach(client, bufnr)
-          end
 
-          lsp_zero.default_keymaps({ buffer = bufnr })
-
-          -- In this case, we create a function that lets us more easily define mappings specific
-          -- for LSP related items. It sets the mode, buffer and description for us each time.
-          local normalModeMap = function(keys, func, desc)
-            if desc then
-              desc = 'LSP: ' .. desc
-            end
-
-            vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
-          end
-
-          normalModeMap('<leader>r', vim.lsp.buf.rename, 'Rename')
-          normalModeMap('<leader>ca', vim.lsp.buf.code_action, 'Code Action')
-
-          normalModeMap('gd', vim.lsp.buf.definition, 'Goto Definition')
-          normalModeMap('gr', require('telescope.builtin').lsp_references, 'Goto References')
-          normalModeMap('gI', require('telescope.builtin').lsp_implementations, 'Goto Implementation')
-          normalModeMap('<leader>D', vim.lsp.buf.type_definition, 'Type Definition')
-          normalModeMap('<leader>ds', require('telescope.builtin').lsp_document_symbols, 'Document Symbols')
-          normalModeMap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace Symbols')
-
-          -- See `:help K` for why this keymap
-          normalModeMap('K', vim.lsp.buf.hover, 'Hover Documentation')
-          normalModeMap('<leader>k', vim.lsp.buf.signature_help, 'Signature Documentation')
-
-          -- Lesser used LSP functionality
-          normalModeMap('gD', vim.lsp.buf.declaration, 'Goto Declaration')
-        end
-      )
-
-
-      lsp_zero.format_on_save({
-        format_opts = {
-          async = false,
-          timeout_ms = 10000,
-        },
-        servers = {
-          ['eslint'] = { 'javascript', 'typescript' },
-          ['jsonls'] = { 'json' },
-          ['lua_ls'] = { 'lua' },
-          ['html'] = { 'html' },
-          ['tsserver'] = { 'javascript', 'typescript' },
-        }
-      })
-
+      -- lsp_zero.format_on_save({
+      --   format_opts = {
+      --     async = false,
+      --     timeout_ms = 10000,
+      --   },
+      --   servers = {
+      --     ['eslint-lsp'] = { 'javascript', 'typescript' },
+      --     ['jsonls'] = { 'json' },
+      --     ['lua_ls'] = { 'lua' },
+      --     ['html'] = { 'html' },
+      --     ['tsserver'] = { 'javascript', 'typescript' },
+      --   }
+      -- })
+      --
       require('mason').setup({})
       require('mason-lspconfig').setup({
         ensure_installed = { 'tsserver', 'eslint', 'jsonls', 'lua_ls' },
@@ -122,6 +80,41 @@ return {
           ['<C-y>'] = cmp.mapping.confirm({ select = true }),
           ['<C-Space>'] = cmp.mapping.complete(),
         }),
+      })
+
+      lsp_zero.on_attach(
+        function(client, bufnr)
+          -- add breadcrumbs
+          if client.server_capabilities.documentSymbolProvider then
+            require("nvim-navic").attach(client, bufnr)
+          end
+          -- breadcrumbs navigation
+          if client.server_capabilities.documentSymbolProvider then
+            require("nvim-navbuddy").attach(client, bufnr)
+          end
+        end
+      )
+
+      vim.api.nvim_create_autocmd('LspAttach', {
+        desc = 'LSP actions',
+        callback = function(event)
+          local opts = { buffer = event.buf }
+
+          vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+          vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+          vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+          vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+          vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+          vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+          vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+          vim.keymap.set('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+          vim.keymap.set('n', '<leader>x', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+          vim.keymap.set('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+
+          vim.keymap.set('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
+          vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>', opts)
+          vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>', opts)
+        end
       })
     end
   },

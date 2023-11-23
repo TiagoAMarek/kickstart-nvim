@@ -28,6 +28,8 @@ require("noice").setup({
   },
 
 })
+require("telescope").load_extension("ui-select")
+
 
 -- document existing key chains
 require('which-key').register({
@@ -35,6 +37,7 @@ require('which-key').register({
   ['<leader>d'] = { name = 'Document', _ = 'which_key_ignore' },
   ['<leader>f'] = { name = 'Find', _ = 'which_key_ignore' },
   ['<leader>g'] = { name = 'Git', _ = 'which_key_ignore' },
+  ['<leader>h'] = { name = 'Harpoon', _ = 'which_key_ignore' },
   ['<leader>r'] = { name = 'Rename', _ = 'which_key_ignore' },
   ['<leader>s'] = { name = 'Spectre', _ = 'which_key_ignore' },
   ['<leader>u'] = { name = 'Undotree', _ = 'which_key_ignore' },

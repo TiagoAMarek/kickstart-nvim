@@ -4,7 +4,7 @@ return {
   config = function()
     require('satellite').setup {
       current_only = false,
-      winblend = 50,
+      winblend = 30,
       zindex = 40,
       excluded_filetypes = {},
       width = 2,
@@ -25,8 +25,8 @@ return {
         gitsigns = {
           enable = true,
           signs = { -- can only be a single character (multibyte is okay)
-            add = "│",
-            change = "│",
+            add = "+",
+            change = "~",
             delete = "-",
           },
         },

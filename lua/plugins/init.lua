@@ -14,6 +14,9 @@ return {
 	--   end,
 	-- },
 	{
+		"lambdalisue/suda.vim"
+	},
+	{
 		"kylechui/nvim-surround",
 		version = "*", -- Use for stability; omit to use `main` branch for the latest features
 		event = "VeryLazy",
@@ -93,5 +96,9 @@ return {
 			},
 		},
 		opts = {},
-	}
+	},
+	{
+		"gennaro-tedesco/nvim-jqx",
+		ft = { "json", "yaml" },
+	},
 }

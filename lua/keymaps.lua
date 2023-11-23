@@ -11,10 +11,11 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-vim.keymap.set('n', "<C-s>", "<cmd>w!<cr>", { desc = "Force write" })
-vim.keymap.set('n', "<C-q>", "<cmd>qa!<cr>", { desc = "Force quit" })
+vim.keymap.set('n', "<C-s>", "<cmd>w<cr>", { desc = "Write" })
+vim.keymap.set('n', "<C-q>", "<cmd>enew<bar>bd #<cr>", { desc = "Force Close Buffer" })
 vim.keymap.set('n', "|", "<cmd>vsplit<cr>", { desc = "Vertical Split" })
 vim.keymap.set('n', "\\", "<cmd>split<cr>", { desc = "Horizontal Split" })
+vim.keymap.set('n', "<C-x>", "<cmd>LspZeroFormat<cr>", { desc = "Horizontal Split" })
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
