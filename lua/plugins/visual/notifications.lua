@@ -2,6 +2,19 @@ return {
   "folke/noice.nvim",
   event = "VeryLazy",
   lazy = false,
+  keys = {
+    {
+      "<leader>md",
+      "<cmd>NoiceDismiss<cr>",
+      desc = "Dismiss messages",
+    },
+    {
+      "<leader>mm",
+      "<cmd>Noice<cr>",
+      desc = "Messages",
+    },
+
+  },
   config = function()
     require("notify").setup({
       background_colour = "#fff",

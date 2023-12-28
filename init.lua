@@ -4,18 +4,18 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-require("install-lazy")
-require("options")
-require("keymaps")
-require("transparent").toggle(true)
+require 'install-lazy'
+require 'options'
+require 'keymaps'
+-- require("transparent").toggle(true)
 
-require("noice").setup({
+require('noice').setup {
   lsp = {
     -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
     override = {
-      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-      ["vim.lsp.util.stylize_markdown"] = true,
-      ["cmp.entry.get_documentation"] = true,
+      ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+      ['vim.lsp.util.stylize_markdown'] = true,
+      ['cmp.entry.get_documentation'] = true,
     },
   },
   -- you can enable a preset for easier configuration
@@ -26,24 +26,22 @@ require("noice").setup({
     inc_rename = false,           -- enables an input dialog for inc-rename.nvim
     lsp_doc_border = false,       -- add a border to hover docs and signature help
   },
+}
 
-})
-require("telescope").load_extension("ui-select")
-
+require('telescope').load_extension 'ui-select'
 
 -- document existing key chains
-require('which-key').register({
+require('which-key').register {
   ['<leader>c'] = { name = 'Code', _ = 'which_key_ignore' },
-  ['<leader>d'] = { name = 'Document', _ = 'which_key_ignore' },
   ['<leader>f'] = { name = 'Find', _ = 'which_key_ignore' },
   ['<leader>g'] = { name = 'Git', _ = 'which_key_ignore' },
-  ['<leader>h'] = { name = 'Harpoon', _ = 'which_key_ignore' },
   ['<leader>r'] = { name = 'Rename', _ = 'which_key_ignore' },
-  ['<leader>s'] = { name = 'Spectre', _ = 'which_key_ignore' },
-  ['<leader>u'] = { name = 'Undotree', _ = 'which_key_ignore' },
-  ['<leader>w'] = { name = 'Workspace', _ = 'which_key_ignore' },
-})
-
+  ['<leader>u'] = { name = 'Treesitter', _ = 'which_key_ignore' },
+  ['<leader>h'] = { name = 'harpoon', _ = 'which_key_ignore' },
+  ['<leader>m'] = { name = 'Messages', _ = 'which_key_ignore' },
+  ['<leader>s'] = { name = 'Session Manager', _ = 'which_key_ignore' },
+  ['<leader>b'] = { name = 'Buffers', _ = 'which_key_ignore' },
+}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

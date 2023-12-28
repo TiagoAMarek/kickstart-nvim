@@ -7,11 +7,11 @@ return {
     },
     cmd = { "Harpoon" },
     keys = {
-      { "<M-a>", function() require("harpoon.mark").add_file() end,        desc = "Add file" },
-      { "<M-q>", function() require("harpoon.ui").toggle_quick_menu() end, desc = "Toggle quick menu" },
-      { "<M-,>", function() require("harpoon.ui").nav_prev() end,          desc = "Goto previous mark" },
-      { "<M-.>", function() require("harpoon.ui").nav_next() end,          desc = "Goto next mark" },
-      { "<M-m>", "<cmd>Telescope harpoon marks<CR>",                       desc = "Show marks in Telescope" },
+      { "<C-a>", function() require("harpoon.mark").add_file() end,        desc = "Add file" },
+      { "<C-p>", function() require("harpoon.ui").toggle_quick_menu() end, desc = "Toggle quick menu" },
+      { "<C-,>",      function() require("harpoon.ui").nav_prev() end,          desc = "Goto previous mark" },
+      { "<C-.>",      function() require("harpoon.ui").nav_next() end,          desc = "Goto next mark" },
+      { "<leader>hm", "<cmd>Telescope harpoon marks<CR>",                       desc = "Show marks in Telescope" },
     },
   },
 }

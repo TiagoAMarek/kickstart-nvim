@@ -89,17 +89,3 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnos
 vim.keymap.set('n', '<leader>t', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
--- NeoTree
-if is_available "neo-tree.nvim" then
-  vim.keymap.set('n', "<leader>e", "<cmd>Neotree toggle<cr>", { desc = "Toggle Explorer" })
-  vim.keymap.set('n', "<leader>o",
-    function()
-      if vim.bo.filetype == "neo-tree" then
-        vim.cmd.wincmd "p"
-      else
-        vim.cmd.Neotree "focus"
-      end
-    end,
-    { desc = "Toggle Explorer Focus" }
-  )
-end

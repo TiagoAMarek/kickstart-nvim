@@ -17,8 +17,11 @@ return {
     -- See `:help cmp`
     local cmp = require 'cmp'
     local luasnip = require 'luasnip'
+    local lsp_zero = require 'lsp-zero'
+
     require('luasnip.loaders.from_vscode').lazy_load()
     luasnip.config.setup {}
+    local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
     cmp.setup {
       snippet = {
@@ -26,27 +29,18 @@ return {
           luasnip.lsp_expand(args.body)
         end,
       },
+      formatting = lsp_zero.cmp_format(),
       mapping = cmp.mapping.preset.insert {
-        ['<C-n>'] = cmp.mapping.select_next_item(),
-        ['<C-p>'] = cmp.mapping.select_prev_item(),
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-d>'] = cmp.mapping.scroll_docs(4),
+        ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+        ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+        ['<C-y>'] = cmp.mapping.confirm({ select = true }),
         ['<C-Space>'] = cmp.mapping.complete {},
         ['<CR>'] = cmp.mapping.confirm {
           behavior = cmp.ConfirmBehavior.Replace,
           select = true,
         },
-        -- copilot.nvim plugin
-        -- ['<C-l>'] = cmp.mapping(
-        --   function(fallback)
-        --     local copilot_keys = vim.fn['copilot#Accept']()
-        --     if copilot_keys ~= '' then
-        --       vim.api.nvim_feedkeys(copilot_keys, 'i', true)
-        --     else
-        --       fallback()
-        --     end
-        --   end
-        -- ),
         ['<Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
@@ -69,6 +63,7 @@ return {
       sources = {
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
+        { name = 'nvim_lua' },
       },
     }
   end

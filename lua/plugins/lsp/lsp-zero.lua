@@ -22,7 +22,7 @@ return {
         end,
         desc = "Open NavBuddy",
       }
-    }
+    },
   },
   {
     'VonHeikemen/lsp-zero.nvim',
@@ -31,28 +31,20 @@ return {
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'neovim/nvim-lspconfig',
+
+      -- Adds LSP completion capabilities
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/nvim-cmp',
+
+      -- Snippet Engine & its associated nvim-cmp source
       'L3MON4D3/LuaSnip',
+      'folke/neodev.nvim',
     },
-    init = function()
+    config = function()
+      require("neodev").setup()
       local lsp_zero = require('lsp-zero')
 
-
-      -- lsp_zero.format_on_save({
-      --   format_opts = {
-      --     async = false,
-      --     timeout_ms = 10000,
-      --   },
-      --   servers = {
-      --     ['eslint-lsp'] = { 'javascript', 'typescript' },
-      --     ['jsonls'] = { 'json' },
-      --     ['lua_ls'] = { 'lua' },
-      --     ['html'] = { 'html' },
-      --     ['tsserver'] = { 'javascript', 'typescript' },
-      --   }
-      -- })
-      --
+      -- Install languages
       require('mason').setup({})
       require('mason-lspconfig').setup({
         ensure_installed = { 'tsserver', 'eslint', 'jsonls', 'lua_ls' },
@@ -61,27 +53,7 @@ return {
         }
       })
 
-      local cmp = require('cmp')
-      local cmp_select = { behavior = cmp.SelectBehavior.Select }
-
-      -- autocomplete configs
-      cmp.setup({
-        sources = {
-          { name = 'path' },
-          { name = 'nvim_lsp' },
-          { name = 'nvim_lua' },
-        },
-        formatting = lsp_zero.cmp_format(),
-        mapping = cmp.mapping.preset.insert({
-          ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-d>'] = cmp.mapping.scroll_docs(4),
-          ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-          ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-          ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-          ['<C-Space>'] = cmp.mapping.complete(),
-        }),
-      })
-
+      -- attach server capabilities
       lsp_zero.on_attach(
         function(client, bufnr)
           -- add breadcrumbs
@@ -95,6 +67,20 @@ return {
         end
       )
 
+      -- lsp_zero.format_on_save({
+      --   format_opts = {
+      --     async = false,
+      --     timeout_ms = 10000,
+      --   },
+      --   servers = {
+      --     ['eslint-lsp'] = { 'javascript', 'typescript' },
+      --     ['jsonls'] = { 'json' },
+      --     ['lua_ls'] = { 'lua' },
+      --     ['tsserver'] = { 'javascript', 'typescript' },
+      --   }
+      -- })
+
+      -- add keymaps
       vim.api.nvim_create_autocmd('LspAttach', {
         desc = 'LSP actions',
         callback = function(event)

@@ -2,7 +2,6 @@ return {
 	"xiyaowong/transparent.nvim",
 	-- Detect tabstop and shiftwidth automatically
 	'tpope/vim-sleuth',
-	'christoomey/vim-tmux-navigator',
 	-- Useful plugin to show you pending keybinds.
 	-- {
 	--   "catppuccin/nvim",
